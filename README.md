@@ -13,7 +13,7 @@ us-east-1<br>
 text<br>
 
 You will need to change permissions on the directory to make sure user `ubuntu` can access it. 
-`sudo chown -R /var/tmp/aws-mon`
+`sudo chown -R ubuntu:ubuntu /var/tmp/aws-mon`
 
 *DEPLOY*
 To deploy to all servers use the following:
