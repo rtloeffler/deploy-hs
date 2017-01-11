@@ -9,7 +9,7 @@ NAME=$SERVER_ENV-$BRANCH
 
 #check for branch name
 
-if [[ $SERVER_ENV == '' ]];
+if [[ -z $1 ]];
 then
   echo -e '\e[31myou must provide a SERVER => agp-tn, uhc-tn, uhcc, national, de-uhc, ia-agp\e[0m'
 elif [[ $SERVER_ENV == "agp-tn" ]];
@@ -39,7 +39,7 @@ echo -e '\e[31myou must provide a BRANCH Version => example: 4.150.0\e[0m'
 fi
 
 #check for server
-if [[ -z $1 ]]; then
+if [[ -z $3 ]]; then
 echo -e '\e[31myou must provide target environment -> deploy, intake, process, utils, or report\e[0m'
 fi
 
