@@ -3,7 +3,7 @@ Deploy scripts for HealthStar servers
 
 *Install*
 On the root of the bastion server you must add `deploy.sh` and `single-deploy.sh`
-On the deploy web server you must add `create-image.sh` and run aws configure. 
+On the deploy web server you must add `create-image.sh` and run aws configure. This file is not needed any other server that doesnt use autoscaling. 
 
 *AWS CONFIG OPTIONS*
 
