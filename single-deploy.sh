@@ -140,7 +140,6 @@ fi
 if [[ $TARGET_ENV == "deploy" ]];
 then
   ssh ubuntu@$TARGET_HOST -A "./create-image.sh $NAME"
-  fi
   sleep 2
 else
   echo -e 'no need to create image'
