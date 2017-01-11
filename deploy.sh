@@ -7,7 +7,7 @@ if [[ -z $1 ]]; then
 echo -e '\e[31myou must provide branch version: example:  "4.150.0"\e[0m'
 fi
 
-if [[ -z $2 ]]; then
+if [[ $SERVER == '' ]]; then
 echo -e '\e[31myou must provide server: example: "agp-tn, uhc-tn, uhcc, national, de-uhc, ia-agp"\e[0m'
 fi
 
