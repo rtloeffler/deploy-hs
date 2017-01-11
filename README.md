@@ -7,10 +7,10 @@ On the deploy web server you must add `create-image.sh` and run aws configure. T
 
 *AWS CONFIG OPTIONS*
 
-AKIAIXWP7YUNFIYK3RCQ
-gkIbVXwcUY6YTjrkM5XA/OGMHsbTLgK9FrCCsyxU
-us-east-1
-text
+AKIAIXWP7YUNFIYK3RCQ<br>
+gkIbVXwcUY6YTjrkM5XA/OGMHsbTLgK9FrCCsyxU<br>
+us-east-1<br>
+text<br>
 
 You will need to change permissions on the directory to make sure user `ubuntu` can access it. 
 `sudo chown -R /var/tmp/aws-mon`
