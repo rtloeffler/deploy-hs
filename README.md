@@ -22,9 +22,11 @@ text
 To deploy to all servers use the following:
 - `./deploy.sh <branch version>`
 - example: `./deploy.sh 4.150.0`
+- You'll still need to create the launch config and add the instance back to the elb
 
 To deploy to single servers use: 
 - `./single-deploy.sh agp-tn 4.150.0 intake`
+
 
 Deploy Servers will automatically create an image based off server and branch version. You'll still need to manually add the new AMI to the launch config and do the autoscaling for now. 
 
