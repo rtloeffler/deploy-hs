@@ -6,7 +6,7 @@ SERVER_ENV=$1
 SERVER=""
 BRANCH=$2
 NAME=$SERVER_ENV-$BRANCH
-
+REINSTATE=$4
 #check for branch name
 
 if [[ -z $1 ]];
@@ -124,23 +124,38 @@ fi
 
 
 # Deploy code
-if [[ $TARGET_HOST != "" && $SERVER != "" && $BRANCH != "" ]]; then
+if [[ $TARGET_HOST != "" ]] && [[ $SERVER != "" ]] && [[ $BRANCH != "" ]] && [[ $REINSTATE != "reinstate" ]]; then
   echo -e '\e[42mALL CHECKS PASSED STARTING DEPLOY...\e[0m'
   sleep 2
   echo -e '\e[42mConnecting to ' $TARGET_HOST $SERVER 
   echo -e '\e[0m'
 fi
-  if ssh ubuntu@$TARGET_HOST -A "echo -e '\e[42mconnected to ' $TARGET_HOST && echo -e '\e[0m' && sleep 2 && cd /var/www/visitverify && git branch && sleep 2 && git fetch && echo -e '\e[42mDeploying to' $BRANCH $SERVER && echo -e '\e[0m' && sleep 2 && git checkout origin/instance/$SERVER-$BRANCH && echo -e '\e[42m' && git branch && echo -e '\e[0m' && sleep 2"; then
+  if [[ $REINSTATE == ""  ]]; 
+    then
+      ssh ubuntu@$TARGET_HOST -A "echo -e '\e[42mconnected to ' $TARGET_HOST && echo -e '\e[0m' && sleep 2 && cd /var/www/visitverify && git branch && sleep 2 && git fetch && echo -e '\e[42mDeploying to' $BRANCH $SERVER && echo -e '\e[0m' && sleep 2 && git checkout origin/instance/$SERVER-$BRANCH && echo -e '\e[42m' && git branch && echo -e '\e[0m' && sleep 2"; then
       echo -e '\e[44mdeployed' $BRANCH ' to' $SERVER_ENV $TARGET_ENV 'server....over and out\e[0m'
-    else 
+elif [[ $REINSTATE != "" ]];
+then
+    echo 'nothing to do here'
+  else 
       echo -e '\e[31mDEPLOY FAILUR: CHECK HISTORY\e[0m'
 fi
 
-# Create Image
-if [[ $TARGET_ENV == "deploy" ]];
+# Create Image and take out of load balancer
+if [[ $TARGET_ENV == "deploy" ]] && [[ $REINSTATE != "reinstate" ]];
 then
   ssh ubuntu@$TARGET_HOST -A "./create-image.sh $NAME"
   sleep 2
 else
   echo -e 'no need to create image'
 fi
+
+# Re-register with load balancer
+if [[ $REINSTATE == "reinstate" ]]; 
+then
+    ssh ubuntu@$TARGET_HOST -A "./create-image.sh $NAME reinstate" 
+else 
+  echo -e 'no need to put re-register instance with load balancer'
+fi
+
+
