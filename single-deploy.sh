@@ -151,11 +151,9 @@ else
 fi
 
 # Re-register with load balancer
-if [[ $REINSTATE == "reinstate" ]]; 
+if [[ $REINSTATE == "reinstate" ]];
 then
-    ssh ubuntu@$TARGET_HOST -A "./create-image.sh $NAME reinstate" 
-else 
-  echo -e 'no need to put re-register instance with load balancer'
+  for i in {1..5}; do ssh ubuntu@$TARGET_HOST -A "./create-image.sh $NAME reinstate" && break || echo 'connection timeout' sleep 15; done
 fi
 
 
