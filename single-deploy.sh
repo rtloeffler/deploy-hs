@@ -132,7 +132,7 @@ if [[ $TARGET_HOST != "" ]] && [[ $SERVER != "" ]] && [[ $BRANCH != "" ]] && [[ 
 fi
   if [[ $REINSTATE == ""  ]]; 
     then
-      ssh ubuntu@$TARGET_HOST -A "echo -e '\e[42mconnected to ' $TARGET_HOST && echo -e '\e[0m' && sleep 2 && cd /var/www/visitverify && git branch && sleep 2 && git fetch && echo -e '\e[42mDeploying to' $BRANCH $SERVER && echo -e '\e[0m' && sleep 2 && git checkout origin/instance/$SERVER-$BRANCH && echo -e '\e[42m' && git branch && echo -e '\e[0m' && sleep 2"; then
+      ssh ubuntu@$TARGET_HOST -A "echo -e '\e[42mconnected to ' $TARGET_HOST && echo -e '\e[0m' && sleep 2 && cd /var/www/visitverify && git branch && sleep 2 && git fetch && echo -e '\e[42mDeploying to' $BRANCH $SERVER && echo -e '\e[0m' && sleep 2 && git checkout origin/instance/$SERVER-$BRANCH && echo -e '\e[42m' && git branch && echo -e '\e[0m' && sleep 2"
       echo -e '\e[44mdeployed' $BRANCH ' to' $SERVER_ENV $TARGET_ENV 'server....over and out\e[0m'
 elif [[ $REINSTATE != "" ]];
 then
