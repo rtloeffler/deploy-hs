@@ -16,6 +16,9 @@ fi
 
 if [[ $REINSTATE == "reinstate" ]]; then
 	sudo aws elb register-instances-with-load-balancer --load-balancer-name ia-agp-web --instances $INSTANCE_ID && echo -e '\e[44mREMOVED FROM ELB  SUCCESSFULLY\e[0m'
+
+elif [[ $REINSTATE == "" ]]; then
+	echo ' '
 else
 	echo -e '\e[31mFAILED TO PUT DEPLOY SERVER BACK INTO LOAD BALANCER - please add it back manually using the UI'
 fi
