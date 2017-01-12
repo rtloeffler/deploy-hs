@@ -2,10 +2,11 @@
 INSTANCE_ID=`cat /var/tmp/aws-mon/instance-id`
 NAME=$1
 REINSTATE=$2
+ELB="amerigroup-web"
 
 
 if [[ $INSTANCE_ID != "" ]] && [[  $REINSTATE = "" ]]; then
-      sudo aws elb deregister-instances-from-load-balancer --load-balancer-name ia-agp-web --instances $INSTANCE_ID && echo -e '\e[44mREMOVED FROM ELB  SUCCESSFULLY\e[0m'
+      sudo aws elb deregister-instances-from-load-balancer --load-balancer-name $ELB --instances $INSTANCE_ID && echo -e '\e[44mREMOVED FROM ELB  SUCCESSFULLY\e[0m'
       sudo aws ec2 create-image --instance-id $INSTANCE_ID --name "$NAME" --region us-east-1 && echo -e '\e[44mIMAGE CREATED SUCCESSFULLY\e[0m'
 elif [[ $REINSTATE != "" ]];
 then
@@ -15,7 +16,7 @@ then
 fi
 
 if [[ $REINSTATE == "reinstate" ]]; then
-	sudo aws elb register-instances-with-load-balancer --load-balancer-name ia-agp-web --instances $INSTANCE_ID && echo -e '\e[44mREMOVED FROM ELB  SUCCESSFULLY\e[0m'
+	sudo aws elb register-instances-with-load-balancer --load-balancer-name $ELB --instances $INSTANCE_ID && echo -e '\e[44mAdded Instance To ELB  SUCCESSFULLY\e[0m'
 
 elif [[ $REINSTATE == "" ]]; then
 	echo ' '
