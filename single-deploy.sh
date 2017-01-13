@@ -7,6 +7,8 @@ SERVER=""
 BRANCH=$2
 NAME=$SERVER_ENV-$BRANCH
 REINSTATE=$4
+manmig=$5
+
 #check for branch name
 
 if [[ -z $1 ]];
@@ -130,7 +132,20 @@ if [[ $TARGET_HOST != "" ]] && [[ $SERVER != "" ]] && [[ $BRANCH != "" ]] && [[ 
   echo -e '\e[42mConnecting to ' $TARGET_HOST $SERVER 
   echo -e '\e[0m'
 fi
-  if [[ $REINSTATE == ""  ]]; 
+  # Run Manual Migraiton
+  if [[ $manmig != '' ]];
+    then
+    ssh ubuntu@$TARGET_HOST -A "echo -e '\e[42mStarting Manual Migration\e[0m' && cd /var/www/visitverify/www/ && php index.php db upgrade_manual $manmig"
+    echo -e '\e[42mMANUAL MIGRATION COMPLETED\e[0m'
+  elif [[ $manmig == '' ]];
+    then
+    echo ''
+  else 
+    echo -e '\e[31mMANUAL MIGRAITON FAILED CHECK HISTORY\e[0m'
+fi
+
+  # RUN REGULAR DEPLOY PROCESS
+  if [[ $REINSTATE != "reinstate" && $manmig == ''  ]]; 
     then
       ssh ubuntu@$TARGET_HOST -A "echo -e '\e[42mconnected to ' $TARGET_HOST && echo -e '\e[0m' && sleep 2 && cd /var/www/visitverify && git branch && sleep 2 && git fetch && echo -e '\e[42mDeploying to' $BRANCH $SERVER && echo -e '\e[0m' && sleep 2 && git checkout origin/instance/$SERVER-$BRANCH && echo -e '\e[42m' && git branch && echo -e '\e[0m' && sleep 2"
       echo -e '\e[44mdeployed' $BRANCH ' to' $SERVER_ENV $TARGET_ENV 'server....over and out\e[0m'
@@ -155,5 +170,3 @@ if [[ $REINSTATE == "reinstate" ]];
 then
   for i in {1..5}; do ssh ubuntu@$TARGET_HOST -A "./create-image.sh $NAME reinstate" && break || echo 'connection timeout' sleep 15; done
 fi
-
-
