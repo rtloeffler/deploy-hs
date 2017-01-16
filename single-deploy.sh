@@ -90,6 +90,9 @@ then
 elif [[ $1 == 'uhcc' && $TARGET_ENV == "deploy" ]];
 then
   TARGET_HOST='10.4.2.153'
+  elif [[ $1 == 'uhcc' && $TARGET_ENV == "utils" ]];
+then
+  TARGET_HOST='10.4.0.206'
 # DE UHC
 elif [[ $1 == 'de-uhc' && $TARGET_ENV == "deploy" ]];
 then
