@@ -13,8 +13,8 @@ Deploy scripts for HealthStar servers
 -- `sudo chown -R ubuntu:ubuntu /var/tmp/aws-mon`<br>
 ```
 *AWS CONFIG OPTIONS*
-AKIAIXWP7YUNFIYK3RCQ
-gkIbVXwcUY6YTjrkM5XA/OGMHsbTLgK9FrCCsyxU
+####
+####
 us-east-1
 text
 ```
